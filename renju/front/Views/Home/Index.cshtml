@@ -1,0 +1,33 @@
+﻿<!-- Views/Home/Index.cshtml -->
+@using renju
+@model Renju
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Renju Game</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+</head>
+<body>
+<h2>Renju Game</h2>
+<div>
+    <table>
+        @for (int i = 0; i < Model.Size; i++)
+        {
+            <tr>
+                @for (int j = 0; j < Model.Size; j++)
+                {
+                    <td>
+                        @Html.ActionLink(Model.BoardAt(i, j).ToString(), "MakeMove", new { row = i, col = j })
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+<div>
+    <p>@ViewBag.Message</p>
+    <p><a asp-controller="Home" asp-action="Rematch">Rematch</a></p>
+</div>
+</body>
+</html>

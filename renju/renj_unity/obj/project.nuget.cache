@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "4CwTTK63ugSqwG3xTYEQcYeCEJiJNNyjj5zSM+WdH205TQV9ESekH5DFcIWkHGcKqxhBHxjZ+wC51wkz87ik2w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\marko\\RiderProjects\\renju\\renj_unity\\renj_unity.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\marko\\.nuget\\packages\\nunit\\4.1.0\\nunit.4.1.0.nupkg.sha512",
+    "C:\\Users\\marko\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
+    "C:\\Users\\marko\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.2\\system.threading.tasks.extensions.4.5.2.nupkg.sha512",
+    "C:\\Users\\marko\\.nuget\\packages\\unity\\5.11.10\\unity.5.11.10.nupkg.sha512",
+    "C:\\Users\\marko\\.nuget\\packages\\unity.abstractions\\5.11.7\\unity.abstractions.5.11.7.nupkg.sha512",
+    "C:\\Users\\marko\\.nuget\\packages\\unity.container\\5.11.11\\unity.container.5.11.11.nupkg.sha512"
+  ],
+  "logs": []
+}

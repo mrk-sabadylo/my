@@ -1,0 +1,11 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;PhysicalFolder Path="C:\Users\marko\.nuget\packages\microsoft.net.test.sdk\17.10.0-release-24177-07" Loaded="True" /&gt;&#xD;
+  &lt;PhysicalFolder Path="C:\Users\marko\.nuget\packages\microsoft.net.test.sdk\17.8.0" Loaded="True" /&gt;&#xD;
+  &lt;PhysicalFolder Path="C:\Users\marko\.nuget\packages\microsoft.net.test.sdk\17.9.0" Loaded="True" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=066ecc52_002Dee61_002D4c69_002D8cde_002D9f9d35232576/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="MakeMove_InvalidMove_ReturnsFalse" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::23A91DD3-1121-470E-B15D-41CE9274FDC7::net8.0::renju_test.RenjuTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

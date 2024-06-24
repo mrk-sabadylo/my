@@ -1,0 +1,240 @@
+<html>
+<head>
+<title>Program.cs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d0d0d0;}
+.s1 { color: #6c95eb;}
+.s2 { color: #bdbdbd;}
+.s3 { color: #c9a26d;}
+.s4 { color: #ed94c0;}
+</style>
+</head>
+<body bgcolor="#262626">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Program.cs</font>
+</center></td></tr></table>
+<pre>
+<span class="s1">using </span><span class="s0">System</span><span class="s2">;</span>
+<span class="s1">using </span><span class="s0">System</span><span class="s2">.</span><span class="s0">Diagnostics</span><span class="s2">;</span>
+
+
+<span class="s1">public class </span><span class="s0">Renju</span>
+<span class="s2">{</span>
+    <span class="s1">public const char </span><span class="s0">EmptyCell </span><span class="s2">= </span><span class="s3">'-'</span><span class="s2">;</span>
+    <span class="s1">private int </span><span class="s0">size</span><span class="s2">;</span>
+    <span class="s1">private int </span><span class="s0">winLength</span><span class="s2">;</span>
+    <span class="s1">private char</span><span class="s2">[,] </span><span class="s0">board</span><span class="s2">;</span>
+    <span class="s1">private char </span><span class="s0">currentPlayer</span><span class="s2">;</span>
+   
+    <span class="s1">public </span><span class="s0">Renju</span><span class="s2">(</span><span class="s1">int </span><span class="s0">size </span><span class="s2">= </span><span class="s4">16</span><span class="s2">, </span><span class="s1">int </span><span class="s0">winLength </span><span class="s2">= </span><span class="s4">5</span><span class="s2">)</span>
+    <span class="s2">{</span>
+        <span class="s1">this</span><span class="s2">.</span><span class="s0">size </span><span class="s2">= </span><span class="s0">size</span><span class="s2">;</span>
+        <span class="s1">this</span><span class="s2">.</span><span class="s0">winLength </span><span class="s2">= </span><span class="s0">winLength</span><span class="s2">;</span>
+        <span class="s0">board </span><span class="s2">= </span><span class="s1">new char</span><span class="s2">[</span><span class="s0">size</span><span class="s2">, </span><span class="s0">size</span><span class="s2">];</span>
+        <span class="s1">for </span><span class="s2">(</span><span class="s1">int </span><span class="s0">i </span><span class="s2">= </span><span class="s4">0</span><span class="s2">; </span><span class="s0">i </span><span class="s2">&lt; </span><span class="s0">size</span><span class="s2">; </span><span class="s0">i</span><span class="s2">++)</span>
+        <span class="s2">{</span>
+            <span class="s1">for </span><span class="s2">(</span><span class="s1">int </span><span class="s0">j </span><span class="s2">= </span><span class="s4">0</span><span class="s2">; </span><span class="s0">j </span><span class="s2">&lt; </span><span class="s0">size</span><span class="s2">; </span><span class="s0">j</span><span class="s2">++)</span>
+            <span class="s2">{</span>
+                <span class="s0">board</span><span class="s2">[</span><span class="s0">i</span><span class="s2">, </span><span class="s0">j</span><span class="s2">] = </span><span class="s0">EmptyCell</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">currentPlayer </span><span class="s2">= </span><span class="s3">'X'</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">public void </span><span class="s0">PrintBoard</span><span class="s2">()</span>
+    <span class="s2">{</span>
+        
+        <span class="s0">Console</span><span class="s2">.</span><span class="s0">WriteLine</span><span class="s2">(</span><span class="s3">&quot;    &quot; </span><span class="s2">+ </span><span class="s1">string</span><span class="s2">.</span><span class="s0">Join</span><span class="s2">(</span><span class="s3">&quot;   &quot;</span><span class="s2">, </span><span class="s0">Enumerable</span><span class="s2">.</span><span class="s0">Range</span><span class="s2">(</span><span class="s4">1</span><span class="s2">, </span><span class="s0">size</span><span class="s2">-</span><span class="s4">1</span><span class="s2">)));</span>
+                
+            <span class="s1">for </span><span class="s2">(</span><span class="s1">int </span><span class="s0">i </span><span class="s2">= </span><span class="s4">1</span><span class="s2">; </span><span class="s0">i </span><span class="s2">&lt;= </span><span class="s0">size</span><span class="s2">-</span><span class="s4">1</span><span class="s2">; </span><span class="s0">i</span><span class="s2">++)</span>
+            <span class="s2">{</span>
+                <span class="s1">if </span><span class="s2">(</span><span class="s0">i </span><span class="s2">&lt;= </span><span class="s4">9</span><span class="s2">)</span>
+                <span class="s2">{</span>
+                    <span class="s0">Console</span><span class="s2">.</span><span class="s0">Write</span><span class="s2">(</span><span class="s0">i </span><span class="s2">+ </span><span class="s3">&quot;:  &quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+                <span class="s1">else  </span><span class="s0">Console</span><span class="s2">.</span><span class="s0">Write</span><span class="s2">(</span><span class="s0">i </span><span class="s2">+ </span><span class="s3">&quot;: &quot;</span><span class="s2">);</span>
+
+                <span class="s1">for </span><span class="s2">(</span><span class="s1">int </span><span class="s0">j </span><span class="s2">= </span><span class="s4">1</span><span class="s2">; </span><span class="s0">j </span><span class="s2">&lt;= </span><span class="s0">size</span><span class="s2">-</span><span class="s4">1</span><span class="s2">; </span><span class="s0">j</span><span class="s2">++)</span>
+                <span class="s2">{</span>
+                    <span class="s0">Console</span><span class="s2">.</span><span class="s0">Write</span><span class="s2">(</span><span class="s0">board</span><span class="s2">[</span><span class="s0">i</span><span class="s2">, </span><span class="s0">j</span><span class="s2">] + </span><span class="s3">&quot;   &quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+
+                <span class="s0">Console</span><span class="s2">.</span><span class="s0">WriteLine</span><span class="s2">();</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+    <span class="s1">private bool </span><span class="s0">CheckWinner</span><span class="s2">(</span><span class="s1">int </span><span class="s0">row</span><span class="s2">, </span><span class="s1">int </span><span class="s0">col</span><span class="s2">)</span>
+    <span class="s2">{</span>
+        <span class="s1">int</span><span class="s2">[,] </span><span class="s0">directions </span><span class="s2">= { { </span><span class="s4">1</span><span class="s2">, </span><span class="s4">0 </span><span class="s2">}, { </span><span class="s4">0</span><span class="s2">, </span><span class="s4">1 </span><span class="s2">}, { </span><span class="s4">1</span><span class="s2">, </span><span class="s4">1 </span><span class="s2">}, { </span><span class="s4">1</span><span class="s2">, -</span><span class="s4">1 </span><span class="s2">} };</span>
+
+        <span class="s1">for </span><span class="s2">(</span><span class="s1">int </span><span class="s0">i </span><span class="s2">= </span><span class="s4">0</span><span class="s2">; </span><span class="s0">i </span><span class="s2">&lt; </span><span class="s0">directions</span><span class="s2">.</span><span class="s0">GetLength</span><span class="s2">(</span><span class="s4">0</span><span class="s2">); </span><span class="s0">i</span><span class="s2">++) </span>
+        <span class="s2">{</span>
+            <span class="s1">int </span><span class="s0">dr </span><span class="s2">= </span><span class="s0">directions</span><span class="s2">[</span><span class="s0">i</span><span class="s2">, </span><span class="s4">0</span><span class="s2">];</span>
+            <span class="s1">int </span><span class="s0">dc </span><span class="s2">= </span><span class="s0">directions</span><span class="s2">[</span><span class="s0">i</span><span class="s2">, </span><span class="s4">1</span><span class="s2">];</span>
+            <span class="s1">int </span><span class="s0">r </span><span class="s2">= </span><span class="s0">row</span><span class="s2">; </span>
+            <span class="s1">int </span><span class="s0">c </span><span class="s2">= </span><span class="s0">col</span><span class="s2">;</span>
+            <span class="s1">int </span><span class="s0">count </span><span class="s2">= </span><span class="s4">1</span><span class="s2">; </span>
+            <span class="s1">while </span><span class="s2">(</span><span class="s0">count </span><span class="s2">&lt; </span><span class="s0">winLength</span><span class="s2">)</span>
+            <span class="s2">{</span>
+                <span class="s0">r </span><span class="s2">+= </span><span class="s0">dr</span><span class="s2">;</span>
+                <span class="s0">c </span><span class="s2">+= </span><span class="s0">dc</span><span class="s2">;</span>
+                <span class="s1">if </span><span class="s2">(</span><span class="s0">r </span><span class="s2">&gt;= </span><span class="s4">0 </span><span class="s2">&amp;&amp; </span><span class="s0">r </span><span class="s2">&lt; </span><span class="s0">size </span><span class="s2">&amp;&amp; </span><span class="s0">c </span><span class="s2">&gt;= </span><span class="s4">0 </span><span class="s2">&amp;&amp; </span><span class="s0">c </span><span class="s2">&lt; </span><span class="s0">size </span><span class="s2">&amp;&amp; </span><span class="s0">board</span><span class="s2">[</span><span class="s0">r</span><span class="s2">, </span><span class="s0">c</span><span class="s2">] == </span><span class="s0">currentPlayer</span><span class="s2">)</span>
+                <span class="s2">{</span>
+                    <span class="s0">count</span><span class="s2">++;</span>
+                <span class="s2">}</span>
+                <span class="s1">else</span>
+                <span class="s2">{</span>
+                    <span class="s1">break</span><span class="s2">;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+
+            <span class="s0">r </span><span class="s2">= </span><span class="s0">row</span><span class="s2">;</span>
+            <span class="s0">c </span><span class="s2">= </span><span class="s0">col</span><span class="s2">;</span>
+
+            <span class="s1">while </span><span class="s2">(</span><span class="s0">count </span><span class="s2">&lt; </span><span class="s0">winLength</span><span class="s2">)</span>
+            <span class="s2">{</span>
+                <span class="s0">r </span><span class="s2">-= </span><span class="s0">dr</span><span class="s2">;</span>
+                <span class="s0">c </span><span class="s2">-= </span><span class="s0">dc</span><span class="s2">;</span>
+                <span class="s1">if </span><span class="s2">(</span><span class="s0">r </span><span class="s2">&gt;= </span><span class="s4">0 </span><span class="s2">&amp;&amp; </span><span class="s0">r </span><span class="s2">&lt; </span><span class="s0">size </span><span class="s2">&amp;&amp; </span><span class="s0">c </span><span class="s2">&gt;= </span><span class="s4">0 </span><span class="s2">&amp;&amp; </span><span class="s0">c </span><span class="s2">&lt; </span><span class="s0">size </span><span class="s2">&amp;&amp; </span><span class="s0">board</span><span class="s2">[</span><span class="s0">r</span><span class="s2">, </span><span class="s0">c</span><span class="s2">] == </span><span class="s0">currentPlayer</span><span class="s2">)</span>
+                <span class="s2">{</span>
+                    <span class="s0">count</span><span class="s2">++;</span>
+                <span class="s2">}</span>
+                <span class="s1">else</span>
+                <span class="s2">{</span>
+                    <span class="s1">break</span><span class="s2">;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+
+            <span class="s1">if </span><span class="s2">(</span><span class="s0">count </span><span class="s2">&gt;= </span><span class="s0">winLength</span><span class="s2">)</span>
+            <span class="s2">{</span>
+                <span class="s1">return true</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+        <span class="s1">return false</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">public bool </span><span class="s0">MakeMove</span><span class="s2">(</span><span class="s1">int </span><span class="s0">row</span><span class="s2">, </span><span class="s1">int </span><span class="s0">col</span><span class="s2">)</span>
+    <span class="s2">{</span>
+        <span class="s1">if </span><span class="s2">(</span><span class="s0">row </span><span class="s2">&lt; </span><span class="s4">0 </span><span class="s2">|| </span><span class="s0">row </span><span class="s2">&gt;= </span><span class="s0">size </span><span class="s2">|| </span><span class="s0">col </span><span class="s2">&lt; </span><span class="s4">0 </span><span class="s2">|| </span><span class="s0">col </span><span class="s2">&gt;= </span><span class="s0">size</span><span class="s2">)</span>
+        <span class="s2">{</span>
+            <span class="s0">Console</span><span class="s2">.</span><span class="s0">WriteLine</span><span class="s2">(</span><span class="s3">&quot;Invalid move. Row and column numbers should be between 0 and &quot; </span><span class="s2">+ (</span><span class="s0">size </span><span class="s2">- </span><span class="s4">1</span><span class="s2">) + </span><span class="s3">&quot;.&quot;</span><span class="s2">);</span>
+            <span class="s1">return false</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s1">if </span><span class="s2">(</span><span class="s0">board</span><span class="s2">[</span><span class="s0">row</span><span class="s2">, </span><span class="s0">col</span><span class="s2">] != </span><span class="s0">EmptyCell</span><span class="s2">)</span>
+        <span class="s2">{</span>
+            <span class="s0">Console</span><span class="s2">.</span><span class="s0">WriteLine</span><span class="s2">(</span><span class="s3">&quot;This cell is already taken.&quot;</span><span class="s2">);</span>
+            <span class="s1">return false</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s0">board</span><span class="s2">[</span><span class="s0">row</span><span class="s2">, </span><span class="s0">col</span><span class="s2">] = </span><span class="s0">currentPlayer</span><span class="s2">;</span>
+        <span class="s1">if </span><span class="s2">(</span><span class="s0">CheckWinner</span><span class="s2">(</span><span class="s0">row</span><span class="s2">, </span><span class="s0">col</span><span class="s2">))</span>
+        <span class="s2">{</span>
+            <span class="s0">Console</span><span class="s2">.</span><span class="s0">WriteLine</span><span class="s2">(</span><span class="s3">$&quot;Player </span><span class="s2">{</span><span class="s0">currentPlayer</span><span class="s2">} </span><span class="s3">wins!&quot;</span><span class="s2">);</span>
+            <span class="s1">return true</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s0">currentPlayer </span><span class="s2">= </span><span class="s0">currentPlayer </span><span class="s2">== </span><span class="s3">'X' </span><span class="s0">? </span><span class="s3">'O' </span><span class="s0">: </span><span class="s3">'X'</span><span class="s2">;</span>
+        <span class="s1">return false</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">public bool </span><span class="s0">IsBoardFull</span><span class="s2">()</span>
+    <span class="s2">{</span>
+        <span class="s1">foreach </span><span class="s2">(</span><span class="s1">char </span><span class="s0">cell </span><span class="s1">in </span><span class="s0">board</span><span class="s2">)</span>
+        <span class="s2">{</span>
+            <span class="s1">if </span><span class="s2">(</span><span class="s0">cell </span><span class="s2">== </span><span class="s0">EmptyCell</span><span class="s2">)</span>
+                <span class="s1">return false</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s1">return true</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">public int </span><span class="s0">Size </span><span class="s2">{ </span><span class="s0">get </span><span class="s2">{ </span><span class="s1">return </span><span class="s0">size</span><span class="s2">; } }</span>
+    <span class="s1">public char </span><span class="s0">CurrentPlayer </span><span class="s2">{ </span><span class="s0">get </span><span class="s2">{ </span><span class="s1">return </span><span class="s0">currentPlayer</span><span class="s2">; } }</span>
+    <span class="s1">public char</span><span class="s2">[,] </span><span class="s0">Board </span><span class="s2">{ </span><span class="s0">get </span><span class="s2">{ </span><span class="s1">return </span><span class="s0">board</span><span class="s2">; } }</span>
+<span class="s2">}</span>
+
+<span class="s1">public  class </span><span class="s0">RandomBot</span>
+<span class="s2">{</span>
+    <span class="s1">private </span><span class="s0">Random random</span><span class="s2">;</span>
+
+    <span class="s1">public </span><span class="s0">RandomBot</span><span class="s2">()</span>
+    <span class="s2">{</span>
+        <span class="s0">random </span><span class="s2">= </span><span class="s1">new </span><span class="s0">Random</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s1">public </span><span class="s0">Tuple</span><span class="s2">&lt;</span><span class="s1">int</span><span class="s2">, </span><span class="s1">int</span><span class="s2">&gt; </span><span class="s0">MakeMove</span><span class="s2">(</span><span class="s0">Renju renju</span><span class="s2">)</span>
+    <span class="s2">{</span>
+        <span class="s1">int </span><span class="s0">size </span><span class="s2">= </span><span class="s0">renju</span><span class="s2">.</span><span class="s0">Size</span><span class="s2">;</span>
+        <span class="s1">while </span><span class="s2">(</span><span class="s1">true</span><span class="s2">)</span>
+        <span class="s2">{</span>
+            <span class="s1">int </span><span class="s0">row </span><span class="s2">= </span><span class="s0">random</span><span class="s2">.</span><span class="s0">Next</span><span class="s2">(</span><span class="s0">size</span><span class="s2">);</span>
+            <span class="s1">int </span><span class="s0">col </span><span class="s2">= </span><span class="s0">random</span><span class="s2">.</span><span class="s0">Next</span><span class="s2">(</span><span class="s0">size</span><span class="s2">);</span>
+            <span class="s1">if </span><span class="s2">(</span><span class="s0">renju</span><span class="s2">.</span><span class="s0">Board</span><span class="s2">[</span><span class="s0">row</span><span class="s2">, </span><span class="s0">col</span><span class="s2">] == </span><span class="s0">Renju</span><span class="s2">.</span><span class="s0">EmptyCell</span><span class="s2">)</span>
+            <span class="s2">{</span>
+                <span class="s1">return </span><span class="s0">Tuple</span><span class="s2">.</span><span class="s0">Create</span><span class="s2">(</span><span class="s0">row</span><span class="s2">, </span><span class="s0">col</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+<span class="s1">public class </span><span class="s0">Program</span>
+<span class="s2">{</span>
+    <span class="s1">static void </span><span class="s0">Main</span><span class="s2">(</span><span class="s1">string</span><span class="s2">[] </span><span class="s0">args</span><span class="s2">)</span>
+    <span class="s2">{</span>
+        <span class="s0">Renju renju </span><span class="s2">= </span><span class="s1">new </span><span class="s0">Renju</span><span class="s2">();</span>
+        <span class="s0">RandomBot bot </span><span class="s2">= </span><span class="s1">new </span><span class="s0">RandomBot</span><span class="s2">();</span>
+
+        <span class="s1">while </span><span class="s2">(</span><span class="s1">true</span><span class="s2">)</span>
+        <span class="s2">{</span>
+            <span class="s0">renju</span><span class="s2">.</span><span class="s0">PrintBoard</span><span class="s2">();</span>
+            <span class="s1">if </span><span class="s2">(</span><span class="s0">renju</span><span class="s2">.</span><span class="s0">CurrentPlayer </span><span class="s2">== </span><span class="s3">'X'</span><span class="s2">)</span>
+            <span class="s2">{</span>
+                <span class="s0">Console</span><span class="s2">.</span><span class="s0">Write</span><span class="s2">(</span><span class="s3">&quot;Player X's turn (row col): &quot;</span><span class="s2">);</span>
+                <span class="s1">string </span><span class="s0">input </span><span class="s2">= </span><span class="s0">Console</span><span class="s2">.</span><span class="s0">ReadLine</span><span class="s2">();</span>
+                <span class="s1">string</span><span class="s2">[] </span><span class="s0">inputParts </span><span class="s2">= </span><span class="s0">input</span><span class="s2">.</span><span class="s0">Split</span><span class="s2">();</span>
+
+                <span class="s1">if </span><span class="s2">(</span><span class="s0">inputParts</span><span class="s2">.</span><span class="s0">Length </span><span class="s2">!= </span><span class="s4">2</span><span class="s2">)</span>
+                <span class="s2">{</span>
+                    <span class="s0">Console</span><span class="s2">.</span><span class="s0">WriteLine</span><span class="s2">(</span><span class="s3">&quot;Invalid input format. Please provide row and column numbers separated by space.&quot;</span><span class="s2">);</span>
+                    <span class="s1">continue</span><span class="s2">;</span>
+                <span class="s2">}</span>
+
+                <span class="s1">if </span><span class="s2">(</span><span class="s0">!</span><span class="s1">int</span><span class="s2">.</span><span class="s0">TryParse</span><span class="s2">(</span><span class="s0">inputParts</span><span class="s2">[</span><span class="s4">0</span><span class="s2">], </span><span class="s1">out int </span><span class="s0">row</span><span class="s2">) || </span><span class="s0">!</span><span class="s1">int</span><span class="s2">.</span><span class="s0">TryParse</span><span class="s2">(</span><span class="s0">inputParts</span><span class="s2">[</span><span class="s4">1</span><span class="s2">], </span><span class="s1">out int </span><span class="s0">col</span><span class="s2">))</span>
+                <span class="s2">{</span>
+                    <span class="s0">Console</span><span class="s2">.</span><span class="s0">WriteLine</span><span class="s2">(</span><span class="s3">&quot;Invalid input. Please enter valid row and column numbers.&quot;</span><span class="s2">);</span>
+                    <span class="s1">continue</span><span class="s2">;</span>
+                <span class="s2">}</span>
+
+                <span class="s1">if </span><span class="s2">(</span><span class="s0">renju</span><span class="s2">.</span><span class="s0">MakeMove</span><span class="s2">(</span><span class="s0">row</span><span class="s2">, </span><span class="s0">col</span><span class="s2">))</span>
+                <span class="s2">{</span>
+                    <span class="s1">break</span><span class="s2">;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s1">else</span>
+            <span class="s2">{</span>
+                <span class="s0">Console</span><span class="s2">.</span><span class="s0">WriteLine</span><span class="s2">(</span><span class="s3">&quot;Bot O's turn:&quot;</span><span class="s2">);</span>
+                <span class="s0">var move </span><span class="s2">= </span><span class="s0">bot</span><span class="s2">.</span><span class="s0">MakeMove</span><span class="s2">(</span><span class="s0">renju</span><span class="s2">);</span>
+                <span class="s1">int </span><span class="s0">row </span><span class="s2">= </span><span class="s0">move</span><span class="s2">.</span><span class="s0">Item1</span><span class="s2">;</span>
+                <span class="s1">int </span><span class="s0">col </span><span class="s2">= </span><span class="s0">move</span><span class="s2">.</span><span class="s0">Item2</span><span class="s2">;</span>
+                <span class="s0">Console</span><span class="s2">.</span><span class="s0">WriteLine</span><span class="s2">(</span><span class="s3">$&quot;Bot O chooses: </span><span class="s2">{</span><span class="s0">row</span><span class="s2">} {</span><span class="s0">col</span><span class="s2">}</span><span class="s3">&quot;</span><span class="s2">);</span>
+                <span class="s1">if </span><span class="s2">(</span><span class="s0">renju</span><span class="s2">.</span><span class="s0">MakeMove</span><span class="s2">(</span><span class="s0">row</span><span class="s2">, </span><span class="s0">col</span><span class="s2">))</span>
+                <span class="s2">{</span>
+                    <span class="s1">break</span><span class="s2">;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+
+            <span class="s1">if </span><span class="s2">(</span><span class="s0">renju</span><span class="s2">.</span><span class="s0">IsBoardFull</span><span class="s2">())</span>
+            <span class="s2">{</span>
+                <span class="s0">Console</span><span class="s2">.</span><span class="s0">WriteLine</span><span class="s2">(</span><span class="s3">&quot;No available moves. It's a draw.&quot;</span><span class="s2">);</span>
+                <span class="s1">break</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "8dBo3HMPqdhy+XlaznmzITTrZ8iSCOOpyBQ2lje5UwpMauv2dr+Gkhrv8iWGFe9GvF5p6Bg1E2DCnXkjPp/Rew==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\marko\\RiderProjects\\renju\\renju\\renju.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\marko\\.nuget\\packages\\nunit\\4.1.0\\nunit.4.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
